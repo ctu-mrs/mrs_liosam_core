@@ -1,0 +1,26 @@
+location: .gitman
+sources:
+  - repo: git@github.com:ctu-mrs/liosam
+    name: liosam
+    rev: master
+    type: git
+    params:
+    sparse_paths:
+      -
+    links:
+      - source: ''
+        target: liosam
+    scripts:
+      - git submodule update --init --recursive
+  - repo: git@github.com:ctu-mrs/mrs_liosam_estimator_plugin
+    name: mrs_liosam_estimator_plugin
+    rev: master
+    type: git
+    params:
+    sparse_paths:
+      -
+    links:
+      - source: ''
+        target: mrs_liosam_estimator_plugin
+    scripts:
+      - git submodule update --init --recursive
