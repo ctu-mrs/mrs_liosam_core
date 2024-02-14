@@ -69,7 +69,7 @@
   <include if="$(eval arg('RUN_TYPE') == 'realworld')" file="$(find ouster_ros)/launch/uav.launch" >
 
     <arg if="$(eval arg('rosbag_replay'))" name="replay" value="true" />
-    <arg if="$(eval arg('rosbag_replay'))" name="metadata" value="$(find mrs_liosam_core)/tmux/realworld_rosbag/ouster_metadata/$(arg OUSTER_TYPE).json" />
+    <arg if="$(eval arg('rosbag_replay'))" name="metadata" value="$(find mrs_liosam_core)/tmux/realworld_rosbag/custom_configs/$(arg OUSTER_TYPE).json" />
 
     <arg name="lidar_mode" value="1024x10" />
 
