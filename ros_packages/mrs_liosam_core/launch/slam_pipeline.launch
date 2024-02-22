@@ -2,9 +2,11 @@
 
   <!-- for rosbag replay node name prefixing --> 
   <arg name="rosbag_replay" default="false" />
+  <arg name="ouster_metadata" default="" />
   <arg if="$(eval arg('rosbag_replay'))" name="node_prefix" value="rosbag_" />
   <arg unless="$(eval arg('rosbag_replay'))" name="node_prefix" value="" />
 
+  <arg name="custom_config" default="" />
 
   <!--//{ ENV VARS -->
   <arg name="PROFILER" default="$(optenv PROFILER false)" />
@@ -68,8 +70,11 @@
   <!--//{ OS DRIVER NODELET (UAV ONLY) -->
   <include if="$(eval arg('RUN_TYPE') == 'realworld')" file="$(find ouster_ros)/launch/uav.launch" >
 
+    <arg name="UAV_NAME" value="$(arg UAV_NAME)" />
+
     <arg if="$(eval arg('rosbag_replay'))" name="replay" value="true" />
-    <arg if="$(eval arg('rosbag_replay'))" name="metadata" value="$(find mrs_liosam_core)/tmux/realworld_rosbag/custom_configs/$(arg OUSTER_TYPE).json" />
+    <arg if="$(eval arg('rosbag_replay') and arg('ouster_metadata') == '')" name="metadata" value="$(find mrs_liosam_core)/tmux/realworld_rosbag/custom_configs/$(arg OUSTER_TYPE).json" />
+    <arg if="$(eval arg('rosbag_replay') and arg('ouster_metadata') != '')" name="metadata" value="$(arg ouster_metadata)" />
 
     <arg name="lidar_mode" value="1024x10" />
 
@@ -111,6 +116,7 @@
     <arg name="launch_prefix" value="$(arg launch_prefix)" />
     <arg name="launch_delay" default="3" />
     
+    <arg name="custom_config" default="$(arg custom_config)" />
     <arg name="node_prefix" value="$(arg node_prefix)" />
     <arg name="frame_baselink" value="$(arg fcu_frame)"/>
     <arg name="frame_lidar" value="$(arg lidar_frame)"/>
